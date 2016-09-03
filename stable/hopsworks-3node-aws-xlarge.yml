@@ -1,8 +1,8 @@
-name: HopsWorksOneNodeAws
+name: HopsWorksThreeNodesAws
 ec2:
-    type: m3.xlarge
-    region: eu-west-1
-    ami: ami-efb29698
+  region: eu-west-1
+  ami: ami-efb29698
+  type: c3.xlarge
 
 cookbooks:                                                                      
   kagent: 
@@ -104,10 +104,12 @@ groups:
         - livy
         - kzookeeper
         - kkafka
-        - elastic
-        - epipe
         - drelephant
   hopsworks:
+    ec2:
+      region: eu-west-1
+      ami: ami-efb29698
+      type: m3.xlarge
     size: 1 
     recipes: 
         - kagent
@@ -120,4 +122,6 @@ groups:
         - hadoop_spark::historyserver
         - flink::yarn
         - zeppelin
+        - elastic
+        - epipe
         - hopsworks
