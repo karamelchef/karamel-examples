@@ -1,10 +1,7 @@
 name: MySqlCluster
 ec2:
-  ami: ami-efb29698
   region: eu-west-1
-  subnet: subnet-6ce7b209
   type: c3.8xlarge
-  vpc: vpc-13fb6176
 cookbooks:
   ndb:
     branch: master
