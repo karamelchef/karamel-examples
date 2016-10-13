@@ -7,46 +7,46 @@ ec2:
 cookbooks:                                                                      
   kagent: 
     github: "karamelchef/kagent-chef"
-    branch: "v0.1"
+    branch "master"
   apache_hadoop: 
     github: "hopshadoop/apache-hadoop-chef"
-    branch: "v2.4.0"
+    branch "master"
   hops: 
     github: "hopshadoop/hops-hadoop-chef"
-    branch: "v2.4.0"
+    branch "master"
   hopsworks:                                                                     
     github: "hopshadoop/hopsworks-chef"
     branch: "master"  
   ndb:
     github: "hopshadoop/ndb-chef"
-    branch: "v7.5.3"
+    branch "master"
   hadoop_spark:
     github: "hopshadoop/spark-chef"
-    branch: "v1.6.1"
+    branch "master"
   flink:
     github: "hopshadoop/flink-chef"
     branch: "master"
   elastic:
     github: "hopshadoop/elasticsearch-chef"
-    branch: "v2.1.2"
+    branch "master"
   zeppelin:
     github: "hopshadoop/zeppelin-chef"
-    branch: "v0.6.0"
+    branch "master"
   kzookeeper: 
     github: "hopshadoop/kzookeeper"
-    branch: "v3.4.7"
+    branch "master"
   kkafka: 
     github: "hopshadoop/kafka-cookbook"
-    branch: "v0.10.0.0"
+    branch "master"
   epipe: 
     github: "hopshadoop/epipe-chef"
-    branch: "v0.2.2"
+    branch "master"
   livy: 
     github: "hopshadoop/livy-chef"
-    branch: "v0.3.0"
+    branch "master"
   drelephant: 
     github: "hopshadoop/dr-elephant-chef"
-    branch: "v2.0.3"
+    branch "master"
 
 attrs:
   hops:
