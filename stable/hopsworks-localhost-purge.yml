@@ -5,59 +5,59 @@ baremetal:
 cookbooks:                                                                      
   kagent: 
     github: "karamelchef/kagent-chef"
-    branch "master"
+    branch: "master"
   apache_hadoop: 
     github: "hopshadoop/apache-hadoop-chef"
-    branch "master"
+    branch: "master"
   hops: 
     github: "hopshadoop/hops-hadoop-chef"
-    branch "master"
+    branch: "master"
   hopsworks:                                                                     
     github: "hopshadoop/hopsworks-chef"
     branch: "master"  
   ndb:
     github: "hopshadoop/ndb-chef"
-    branch "master"
+    branch: "master"
   hadoop_spark:
     github: "hopshadoop/spark-chef"
-    branch "master"
+    branch: "master"
   flink:
     github: "hopshadoop/flink-chef"
     branch: "master"
   elastic:
     github: "hopshadoop/elasticsearch-chef"
-    branch "master"
+    branch: "master"
   zeppelin:
     github: "hopshadoop/zeppelin-chef"
-    branch "master"
+    branch: "master"
   kzookeeper: 
     github: "hopshadoop/kzookeeper"
-    branch "master"
+    branch: "master"
   kkafka: 
     github: "hopshadoop/kafka-cookbook"
-    branch "master"
+    branch: "master"
   epipe: 
     github: "hopshadoop/epipe-chef"
-    branch "master"
+    branch: "master"
   livy: 
     github: "hopshadoop/livy-chef"
-    branch "master"
+    branch: "master"
   drelephant: 
     github: "hopshadoop/dr-elephant-chef"
-    branch "master"
+    branch: "master"
   dela: 
     github: "hopshadoop/dela-chef"
-    branch "master"
+    branch: "master"
     
 groups: 
   singlenode:
     size: 1 
     baremetal:
         ip: 127.0.0.1
-    recipes:                                                                    
+    recipes:                                                        
         - kagent::purge
         - ndb::purge
-        - apache_hadoop::purge	
+        - apache_hadoop::purge
         - hops::purge
         - hopsworks::purge
         - kkafka::purge
@@ -69,4 +69,4 @@ groups:
         - elastic::purge
         - hadoop_spark::purge
         - zeppelin::purge
-        - dela::purge	
+        - dela::purge
