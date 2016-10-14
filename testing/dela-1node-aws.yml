@@ -42,9 +42,6 @@ attrs:
         user: glassfish
     mr: 
         user: glassfish
-  hadoop_spark:
-    user: glassfish
-    dir: "/srv"    
   dela:
     dir: "/mnt"
     user: glassfish
