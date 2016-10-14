@@ -7,28 +7,28 @@ ec2:
 cookbooks:                                                                      
   kagent: 
     github: "karamelchef/kagent-chef"
-    branch "master"
+    branch: "master"
   apache_hadoop: 
     github: "hopshadoop/apache-hadoop-chef"
-    branch "master"
+    branch: "master"
   hops: 
     github: "hopshadoop/hops-hadoop-chef"
-    branch "master"
+    branch: "master"
   hopsworks:                                                                     
     github: "hopshadoop/hopsworks-chef"
     branch: "master"  
   ndb:
     github: "hopshadoop/ndb-chef"
-    branch "master"
+    branch: "master"
   kzookeeper: 
     github: "hopshadoop/kzookeeper"
-    branch "master"
+    branch: "master"
   kkafka: 
     github: "hopshadoop/kafka-cookbook"
-    branch "master"
+    branch: "master"
   dela: 
     github: "hopshadoop/dela-chef"
-    branch "master"
+    branch: "master"
 
 attrs:
   hops:
