@@ -1,0 +1,76 @@
+name: DelaOneNode
+ec2:
+    type: m3.xlarge
+    region: eu-west-1
+    ami: ami-efb29698
+
+cookbooks:                                                                      
+  kagent: 
+    github: "karamelchef/kagent-chef"
+    branch "master"
+  apache_hadoop: 
+    github: "hopshadoop/apache-hadoop-chef"
+    branch "master"
+  hops: 
+    github: "hopshadoop/hops-hadoop-chef"
+    branch "master"
+  hopsworks:                                                                     
+    github: "hopshadoop/hopsworks-chef"
+    branch: "master"  
+  ndb:
+    github: "hopshadoop/ndb-chef"
+    branch "master"
+  kzookeeper: 
+    github: "hopshadoop/kzookeeper"
+    branch "master"
+  kkafka: 
+    github: "hopshadoop/kafka-cookbook"
+    branch "master"
+  dela: 
+    github: "hopshadoop/dela-chef"
+    branch "master"
+
+attrs:
+  hops:
+    dir: "/mnt"    
+    use_hopsworks: "true"
+  apache_hadoop:
+    dir: "/mnt"    
+    hdfs:
+        user: glassfish
+    yarn: 
+        user: glassfish
+    mr: 
+        user: glassfish
+  hadoop_spark:
+    user: glassfish
+    dir: "/srv"    
+  dela:
+    dir: "/mnt"
+    user: glassfish
+  ntp:
+    install: "true"
+  ndb:
+    dir: "/mnt"
+  mysql:
+    dir: "/mnt"
+  hopsworks:
+    master:
+       password: "adminpw"
+  kagent:
+    enabled: "true"
+
+groups: 
+  hopsworks:
+    size: 1 
+    recipes: 
+        - kagent
+        - ndb::mgmd
+        - ndb::ndbd
+        - ndb::mysqld                                                       
+        - hops::ndb
+        - hops::nn
+        - hops::dn
+        - kzookeeper
+        - kkafka
+        - hopsworks

@@ -1,6 +1,6 @@
 name: hopsBareMetalSingleNode
 baremetal:
-    username: jim
+    username: jdowling
     
 cookbooks:                                                                     
   kagent: 
@@ -19,14 +19,14 @@ cookbooks:
 attrs:
   ndb:
     MaxNoOfConcurrentIndexOperations: '1000'
-    RedoBuffer: 2M
+    RedoBuffer: '2M'
     MaxNoOfConcurrentTransactions: '500'
     DataMemory: '25'
     MaxNoOfConcurrentOperations: '5000'
     IndexMemory: '5'
     MaxDMLOperationsPerTransaction: '5000'
-    TotalSendBufferMemory: 1m
-    LongMessageBuffer: 4M
+    TotalSendBufferMemory: '1m'
+    LongMessageBuffer: '4M'
     TransactionInactiveTimeout: '10000'
     TransactionDeadlockDetectionTimeout: '10000'
   hopsworks:
