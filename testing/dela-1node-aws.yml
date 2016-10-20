@@ -29,6 +29,12 @@ cookbooks:
   dela: 
     github: "hopshadoop/dela-chef"
     branch: "master"
+  elastic:
+    github: "hopshadoop/elasticsearch-chef"
+    branch: "master"
+  epipe: 
+    github: "hopshadoop/epipe-chef"
+    branch: "master"
 
 attrs:
   hops:
@@ -59,7 +65,7 @@ attrs:
 
 groups: 
   hopsworks:
-    size: 1 
+    size: 1
     recipes: 
         - kagent
         - ndb::mgmd
@@ -71,3 +77,5 @@ groups:
         - kzookeeper
         - kkafka
         - hopsworks
+        - epipe
+        - elastic
