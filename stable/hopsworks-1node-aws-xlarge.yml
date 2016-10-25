@@ -47,6 +47,12 @@ cookbooks:
   drelephant: 
     github: "hopshadoop/dr-elephant-chef"
     branch: "master"
+  hopsmonitor: 
+    github: "hopshadoop/hopsmonitor-chef"
+    branch: "master"
+  kibana: 
+    github: "hopshadoop/kibana-chef"
+    branch: "master"
 
 attrs:
   hops:
@@ -109,3 +115,5 @@ groups:
         - drelephant
         - epipe
         - hopsworks
+        - kibana
+        - hopsmonitor
