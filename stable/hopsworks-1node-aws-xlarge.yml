@@ -5,115 +5,40 @@ ec2:
     ami: ami-efb29698
 
 cookbooks:                                                                      
-  kagent: 
-    github: "karamelchef/kagent-chef"
-    branch: "master"
-  apache_hadoop: 
-    github: "hopshadoop/apache-hadoop-chef"
-    branch: "master"
-  hops: 
-    github: "hopshadoop/hops-hadoop-chef"
-    branch: "master"
   hopsworks:                                                                     
     github: "hopshadoop/hopsworks-chef"
     branch: "master"  
-  ndb:
-    github: "hopshadoop/ndb-chef"
-    branch: "master"
-  hadoop_spark:
-    github: "hopshadoop/spark-chef"
-    branch: "master"
-  flink:
-    github: "hopshadoop/flink-chef"
-    branch: "master"
-  elastic:
-    github: "hopshadoop/elasticsearch-chef"
-    branch: "master"
-  zeppelin:
-    github: "hopshadoop/zeppelin-chef"
-    branch: "master"
-  kzookeeper: 
-    github: "hopshadoop/kzookeeper"
-    branch: "master"
-  kkafka: 
-    github: "hopshadoop/kafka-cookbook"
-    branch: "master"
-  epipe: 
-    github: "hopshadoop/epipe-chef"
-    branch: "master"
-  livy: 
-    github: "hopshadoop/livy-chef"
-    branch: "master"
-  drelephant: 
-    github: "hopshadoop/dr-elephant-chef"
-    branch: "master"
-  hopsmonitor: 
-    github: "hopshadoop/hopsmonitor-chef"
-    branch: "master"
-  kibana: 
-    github: "hopshadoop/kibana-chef"
-    branch: "master"
 
 attrs:
-  hops:
-    dir: "/mnt"    
-    use_hopsworks: "true"
-  apache_hadoop:
-    dir: "/mnt"    
-    hdfs:
-        user: glassfish
-    yarn: 
-        user: glassfish
-    mr: 
-        user: glassfish
-  hadoop_spark:
-    user: glassfish
-    dir: "/srv"    
-  drelephant:
+  install:
     dir: "/mnt"
-    user: glassfish
-  ntp:
-    install: "true"
-  flink:
-    user: glassfish
-    dir: "/mnt"    
-  ndb:
-    dir: "/mnt"
-  mysql:
-    dir: "/mnt"
-  hopsworks:
-    master:
-       password: "adminpw"
-  zeppelin:
-    user: glassfish
-    dir: "/mnt"
-  kagent:
-    enabled: "true"
+    user: ubuntu
 
 groups: 
   hopsworks:
     size: 1 
     recipes: 
-        - kagent
-        - ndb::mgmd
-        - ndb::ndbd
-        - ndb::mysqld                                                       
-        - hops::ndb
-        - hops::rm
-        - hops::nn
-        - hops::dn
-        - hops::nm
-        - hops::jhs
-        - hadoop_spark::yarn
-        - hadoop_spark::historyserver
-        - flink::yarn
-        - elastic
-        - livy
-        - zeppelin
-        - kzookeeper
-        - kkafka
-        - drelephant
-        - epipe
-        - hopsworks
-        - kibana
-        - hopsmonitor
+      - kagent
+      - ndb::mgmd
+      - ndb::ndbd
+      - ndb::mysqld                                                       
+      - hops::ndb
+      - hops::rm
+      - hops::nn
+      - hops::jhs
+      - hadoop_spark::yarn
+      - hadoop_spark::historyserver
+      - flink::yarn
+      - elastic
+      - livy
+      - zeppelin
+      - kzookeeper
+      - kkafka
+      - epipe
+      - hopsworks
+      - hopsmonitor
+      - hopslog
+      - hops::dn
+      - hops::nm
+      - tensorflow
+      - hopsmonitor::telegraf

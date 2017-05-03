@@ -1,25 +1,66 @@
-name: hopsBareMetalSingleNode
+name: hopsBareMetal24nodes
 baremetal:
-    username: vagrant
+    username: jdowling
     
-cookbooks:                                                                     
-  kagent: 
-    github: "karamelchef/kagent-chef"
-    branch: "master"
-  hops: 
-    github: "hopshadoop/hops-hadoop-chef"
-    branch: "master"
-  ndb: 
-    github: "hopshadoop/ndb-chef"
-    branch: "master"
+cookbooks:                                                                      
+  hopsworks:                                                                     
+    github: "hopshadoop/hopsworks-chef"
+    branch: "master"  
+
+attrs:
+  install:
+    dir: "/srv/hops"
+    user: hops
+  ntp:
+    install: true
+  hopsworks:
+    admin:
+       password: adminpw
+    master:
+       password: adminpw
+    cert:
+       password: changeit
+  mysql:
+    user: donnie
+    password: G0ld3nSh0w3r
+  influxdb:
+    db_password: wav3ts
+    admin_password: theBoss17
     
 groups: 
-  singlenode:
+  hopsworks:
+    size: 1 
+    baremetal:
+        ip: 192.168.0.2
+    recipes:                                                                    
+        - kagent
+        - ndb::mgmd
+        - ndb::ndbd
+        - ndb::mysqld                                                       
+        - hops::ndb
+        - hops::rm
+        - hops::nn
+        - hops::jhs
+	- hopsworks
+        - hadoop_spark::yarn
+        - hadoop_spark::historyserver
+        - flink::yarn
+        - elastic
+        - livy
+        - zeppelin
+        - kzookeeper
+        - kkafka
+        - epipe
+        - hopsworks
+        - hopsmonitor
+        - hopslog
+        
+  metaserver1:
     size: 1 
     baremetal:
         ip: 192.168.0.3
-    recipes:                                                                    
-        - kagent::install
+    recipes:
+        - kagent
         - ndb::mgmd
         - ndb::ndbd
         - ndb::mysqld                                                       
@@ -28,4 +69,48 @@ groups:
         - hops::nn
         - hops::dn
         - hops::nm
-        - hops::jhs                                                            
+	- hopsworks
+        - kzookeeper
+        - kkafka
+        - elastic
+	
+  metaserver2
+    size: 1
+    baremetal:
+        ip: 192.168.0.4
+    recipes:                                                                    
+      - hadoop_spark::yarn
+      - hops::dn
+      - hops::nm
+      - kagent
+      - kzookeeper      
+  
+  datanode:
+    size: 21
+    baremetal:
+        ip: 192.168.0.4
+        ip: 192.168.0.5
+        ip: 192.168.0.6
+        ip: 192.168.0.7
+        ip: 192.168.0.8
+        ip: 192.168.0.9
+        ip: 192.168.0.10
+        ip: 192.168.0.11
+        ip: 192.168.0.12
+        ip: 192.168.0.13
+        ip: 192.168.0.14
+        ip: 192.168.0.15
+        ip: 192.168.0.16
+        ip: 192.168.0.17
+        ip: 192.168.0.18		
+        ip: 192.168.0.19
+        ip: 192.168.0.20
+        ip: 192.168.0.21
+        ip: 192.168.0.22
+        ip: 192.168.0.23
+        ip: 192.168.0.24	
+    recipes:                                                                    
+      - hadoop_spark::yarn
+      - hops::dn
+      - hops::nm
+      - kagent
