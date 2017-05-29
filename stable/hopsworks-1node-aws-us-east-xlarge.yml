@@ -1,0 +1,44 @@
+name: HopsWorksOneNodeAws
+ec2:
+    type: m3.2xlarge
+    region: us-east-1
+    ami: ami-e8651cfe
+
+cookbooks:                                                                      
+  hopsworks:                                                                     
+    github: "hopshadoop/hopsworks-chef"
+    branch: "master"  
+
+attrs:
+  install:
+    dir: "/mnt/hops"
+    user: ubuntu
+
+groups: 
+  hopsworks:
+    size: 1 
+    recipes: 
+      - kagent
+      - ndb::mgmd
+      - ndb::ndbd
+      - ndb::mysqld                                                       
+      - hops::ndb
+      - hops::rm
+      - hops::nn
+      - hops::jhs
+      - hadoop_spark::yarn
+      - hadoop_spark::historyserver
+      - flink::yarn
+      - elastic
+      - livy
+      - zeppelin
+      - kzookeeper
+      - kkafka
+      - epipe
+      - hopsworks
+      - hopsmonitor
+      - hopslog
+      - hops::dn
+      - hops::nm
+      - tensorflow
+      - hopsmonitor::telegraf

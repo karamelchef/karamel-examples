@@ -1,0 +1,17 @@
+name: hopsBareMetalSingleNode
+baremetal:
+    username: jdowling
+    
+cookbooks:                                                                     
+  kagent: 
+    github: "karamelchef/kagent-chef"
+    branch: "master"
+    
+groups: 
+  singlenode:
+    size: 1 
+    baremetal:
+        ip: 127.0.0.1
+    recipes:
+        - kagent
+
