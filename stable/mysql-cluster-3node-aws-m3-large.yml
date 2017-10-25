@@ -6,6 +6,9 @@ cookbooks:
   ndb:
     branch: master
     github: hopshadoop/ndb-chef
+  kagent:
+    branch: master
+    github: hopshadoop/kagent-chef
 attrs:
   ndb:
     DataMemory: '1000'
@@ -18,11 +21,12 @@ cookbooks:
   ndb:
     github: "hopshadoop/ndb-chef"
     branch: "master"
-    
+  kagent:
+    enabled: "false"
 groups: 
   datanodes:
     size: 2
-    recipes: 
+    recipes:
         - ndb::ndbd
   mgmnodes:
     size: 1 

@@ -9,7 +9,7 @@ cookbooks:
 
 attrs:
   install:
-    dir: "/srv/hops"
+    dir: /srv/hops
     user: hops
   ntp:
     install: true
