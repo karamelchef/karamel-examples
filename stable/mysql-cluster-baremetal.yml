@@ -1,0 +1,25 @@
+name: MySqlClusterBaremetal
+baremetal:
+    username: jdowling
+
+cookbooks:
+  ndb:
+    branch: master
+    github: hopshadoop/ndb-chef
+
+attrs:
+  kagent:
+    enabled: "false"
+
+groups: 
+  mgmnodes:
+    baremetal:
+      ip: 127.0.0.1
+    size: 1 
+    attrs:
+      ndb:
+        DataMemory: '1000'
+    recipes: 
+        - ndb::mysqld
+        - ndb::mgmd
+        - ndb::ndbd

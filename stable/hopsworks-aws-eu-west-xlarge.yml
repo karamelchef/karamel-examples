@@ -7,7 +7,7 @@ ec2:
 cookbooks:                                                                      
   hopsworks:                                                                     
     github: "hopshadoop/hopsworks-chef"
-    branch: "master"  
+    branch: "0.4"  
 
 attrs:
   install:
@@ -21,7 +21,7 @@ groups:
       - kagent
       - ndb::mgmd
       - ndb::ndbd
-      - ndb::mysqld                                                       
+      - ndb::mysqld
       - hops::ndb
       - hops::rm
       - hops::nn
@@ -42,5 +42,4 @@ groups:
       - hops::nm
       - tensorflow
       - hopsmonitor::telegraf
-
-
+      - hive2

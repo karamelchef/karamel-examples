@@ -21,7 +21,7 @@ groups:
       - kagent
       - ndb::mgmd
       - ndb::ndbd
-      - ndb::mysqld                                                       
+      - ndb::mysqld
       - hops::ndb
       - hops::rm
       - hops::nn
@@ -42,3 +42,5 @@ groups:
       - hops::nm
       - tensorflow
       - hopsmonitor::telegraf
+      - hive2
+

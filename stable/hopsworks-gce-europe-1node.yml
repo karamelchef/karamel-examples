@@ -1,0 +1,48 @@
+name: Hopsworks
+gce:
+    type: n1-standard-4
+    zone: europe-west1-b
+    image: ubuntu-1604-xenial-v20180306
+    diskSize: 40
+
+cookbooks:
+  hopsworks:
+    github: "hopshadoop/hopsworks-chef"
+    branch: "0.4"
+
+attrs:
+  install:
+    dir: /srv/hops
+  kagent:
+    network:
+      interface: ens4
+
+groups:
+  hopsworks:
+    size: 1
+    recipes:
+      - kagent
+      - ndb::mgmd
+      - ndb::ndbd
+      - ndb::mysqld
+      - hops::ndb
+      - hops::rm
+      - hops::nn
+      - hops::jhs
+      - hadoop_spark::yarn
+      - hadoop_spark::historyserver
+      - flink::yarn
+      - elastic
+      - livy
+      - zeppelin
+      - kzookeeper
+      - kkafka
+      - epipe
+      - hopsworks
+      - hopsmonitor
+      - hopslog
+      - hops::dn
+      - hops::nm
+      - tensorflow
+      - hopsmonitor::telegraf
+      - hive2

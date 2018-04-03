@@ -5,12 +5,11 @@ baremetal:
 cookbooks:                                                                      
   hopsworks:                                                                     
     github: "hopshadoop/hopsworks-chef"
-    branch: "master"  
+    branch: "0.4"  
 
 attrs:
   install:
     dir: /srv/hops
-    user: hops
   ntp:
     install: true
   hopsworks:
@@ -34,13 +33,10 @@ groups:
         ip: 192.168.0.2
     recipes:                                                                    
         - kagent
-        - ndb::mgmd
         - ndb::ndbd
         - ndb::mysqld                                                       
-        - hops::ndb
-        - hops::rm
-        - hops::nn
         - hops::jhs
+        - hops::client	
 	- hopsworks
         - hadoop_spark::yarn
         - hadoop_spark::historyserver
@@ -48,14 +44,13 @@ groups:
         - elastic
         - livy
         - zeppelin
-        - kzookeeper
-        - kkafka
-        - epipe
         - hopsworks
         - hopsmonitor
         - hopslog
-        
-  metaserver1:
+        - hopsmonitor::telegraf
+        - tensorflow
+      
+  metaserver:
     size: 1 
     baremetal:
         ip: 192.168.0.3
@@ -63,28 +58,18 @@ groups:
         - kagent
         - ndb::mgmd
         - ndb::ndbd
-        - ndb::mysqld                                                       
+        - ndb::mysqld
+        - epipe	
         - hops::ndb
         - hops::rm
         - hops::nn
-        - hops::dn
-        - hops::nm
 	- hopsworks
         - kzookeeper
         - kkafka
         - elastic
-	
-  metaserver2
-    size: 1
-    baremetal:
-        ip: 192.168.0.4
-    recipes:                                                                    
-      - hadoop_spark::yarn
-      - hops::dn
-      - hops::nm
-      - kagent
-      - kzookeeper      
-  
+        - hopsmonitor::telegraf
+        - tensorflow
+      
   datanode:
     size: 21
     baremetal:
@@ -114,3 +99,5 @@ groups:
       - hops::dn
       - hops::nm
       - kagent
+      - tensorflow
+      - hopsmonitor::telegraf
