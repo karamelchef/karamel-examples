@@ -1,7 +1,9 @@
-name: hopsBareMetal24nodes
-baremetal:
-    username: jdowling
-    
+name: Hopsworks3NodeGroupsAWS
+ec2:
+    type: m3.xlarge
+    region: eu-west-1
+    ami: ami-efb29698
+
 cookbooks:                                                                      
   hopsworks:                                                                     
     github: "hopshadoop/hopsworks-chef"
@@ -9,7 +11,8 @@ cookbooks:
 
 attrs:
   install:
-    dir: /srv/hops
+    dir: "/mnt/hops"
+    user: ubuntu
   ntp:
     install: true
   hopsworks:
@@ -25,12 +28,10 @@ attrs:
   influxdb:
     db_password: wav3ts
     admin_password: theBoss17
-    
+
 groups: 
   hopsworks:
     size: 1 
-    baremetal:
-        ip: 192.168.0.2
     recipes:
       - kagent
       - conda
@@ -55,8 +56,6 @@ groups:
       
   metaservers:
     size: 2
-    baremetal:
-        ip: 192.168.0.3
     recipes:
       - kagent
       - conda
@@ -72,31 +71,8 @@ groups:
       - hopslog::_filebeat-serving
       - hopsmonitor::telegraf
 
-      
   datanode:
-    size: 21
-    baremetal:
-        ip: 192.168.0.4
-        ip: 192.168.0.5
-        ip: 192.168.0.6
-        ip: 192.168.0.7
-        ip: 192.168.0.8
-        ip: 192.168.0.9
-        ip: 192.168.0.10
-        ip: 192.168.0.11
-        ip: 192.168.0.12
-        ip: 192.168.0.13
-        ip: 192.168.0.14
-        ip: 192.168.0.15
-        ip: 192.168.0.16
-        ip: 192.168.0.17
-        ip: 192.168.0.18		
-        ip: 192.168.0.19
-        ip: 192.168.0.20
-        ip: 192.168.0.21
-        ip: 192.168.0.22
-        ip: 192.168.0.23
-        ip: 192.168.0.24	
+    size: 2
     recipes:                                                                    
       - kagent
       - hops::dn
@@ -106,4 +82,4 @@ groups:
       - hopsmonitor::telegraf
       - hopslog::_filebeat-spark
       - hopslog::_filebeat-serving
-      
+
