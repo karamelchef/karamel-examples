@@ -1,0 +1,89 @@
+name: HopsFS
+gce:
+    type: n1-highcpu-32
+    zone: us-west1-b
+    image: centos-7-v20181113
+    vpc: hopsfs-vpc
+    diskSize: 512
+
+cookbooks:
+  hopsbench:
+    github: hopshadoop/hopsbench
+    branch: 'locdomainId'
+
+attrs:
+  #for fater installation, upload all resources to a bucket within the same region
+  #download_url: "https://storage.googleapis.com/hopsfs-us"
+  download_url: "http://snurran.sics.se/hops/maism/bench"
+  install:
+    dir: /srv/hops
+    user: ubuntu
+  kagent:
+    enabled: false
+  hops:
+    topology: true
+    metrics:
+      use_graphite: false
+    hdfs:
+      quota_enabled: false
+    nn:
+      enable_retrycache: false
+      heap_size: "10000"
+      direct_memory_size: "5000"
+      handler_count: 240
+#    logging_level: "INFO"
+  ndb:
+    num_ndb_slots_per_client: 2
+    num_ndb_slots_per_mysqld: 1
+    ThreadConfig: "main={count=1,cpubind=0},io={count=1,cpubind=1},rep={count=1,cpubind=1},recv={count=3,cpubind=2-4},send={count=2,cpubind=5-6},ldm={count=12,cpubind=7-18},tc={count=7,cpubind=19-25}"
+    NoOfFragmentLogParts: 12
+    NoOfReplicas: 2
+    DataMemory: "1000M"
+    FragmentLogFileSize: "256M"
+    MaxNoOfConcurrentTransactions: 100000
+    MaxNoOfConcurrentOperations: 1000000
+    MaxNoOfConcurrentIndexOperations: 30000
+    MaxNoOfConcurrentScans: 500
+    MaxNoOfAttributes: 24576
+    MaxNoOfTables: 4096
+    MaxNoOfOrderedIndexes: 2048
+    MaxNoOfUniqueHashIndexes: 4096
+    #nvme:
+    #  disks:
+    #    - '/dev/nvme0n1'
+    #    - '/dev/nvme0n2'
+    #    - '/dev/nvme0n3'
+
+
+groups:
+  mgm:
+    size: 1
+    recipes:
+      - ndb::mgmd
+      - ndb::mysqld
+      - hopsbench::master
+    #  - hopsbench::slave
+
+  ndb:
+    gce:
+      type: n1-standard-32
+    #  nvme: 3
+    size: 12
+    recipes:
+        - ndb::ndbd
+        - hopsbench::nmon
+
+  nn:
+    size: 60
+    recipes:
+      - ndb::mysqld
+      - hops::ndb
+      - hops::nn
+      - hopsbench::nn
+      - hopsbench::slave
+
+#  dn:
+#    size: 1
+#    recipes:
+#      - hops::dn
+#      - hopsbench::dn
