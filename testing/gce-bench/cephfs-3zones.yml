@@ -1,0 +1,79 @@
+name: CephFS
+gce:
+  type: n1-highcpu-32
+  zone: us-west1-b
+  image: centos-7-v20180401
+  vpc: hopsfs-vpc
+  diskSize: 512
+
+cookbooks:
+  hadoop:
+    github: hopshadoop/hopsbench
+    branch: "cephfs"
+
+attrs:
+  #for fater installation, upload all resources to a bucket within the same region
+  #download_url: "https://storage.googleapis.com/hopsfs-us"
+  download_url: "http://snurran.sics.se/hops/maism/bench"
+  kagent:
+    enabled: false
+
+groups:
+  mon:
+    gce:
+      zone: us-west1-a
+    size: 1
+    recipes:
+        - hopsbench::master
+        - hopsbench::slave
+        - hopsbench::mon
+  osd1:
+    gce:
+      zone: us-west1-a
+      hdd: 1
+    size: 4
+    recipes:
+      - hopsbench::osd
+  osd2:
+    gce:
+      zone: us-west1-b
+      hdd: 1
+    size: 4
+    recipes:
+      - hopsbench::osd
+  osd3:
+    gce:
+      zone: us-west1-c
+      hdd: 1
+    size: 4
+    recipes:
+      - hopsbench::osd
+
+  mds1:
+    gce:
+      zone: us-west1-a
+    size: 20
+    recipes:
+      - hopsbench::mds
+      - hopsbench::slave
+
+  mds2:
+    gce:
+      zone: us-west1-b
+    size: 20
+    recipes:
+      - hopsbench::mds
+      - hopsbench::slave
+
+  mds3:
+    gce:
+      zone: us-west1-b
+    size: 20
+    recipes:
+      - hopsbench::mds
+      - hopsbench::slave
+
+#  slv:
+#    size: 2
+#    recipes:
+#        - hopsbench::slave
