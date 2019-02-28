@@ -2,7 +2,7 @@ name: HopsWorksOneNodeAws
 ec2:
     type: m3.xlarge
     region: eu-west-1
-    ami: ami-efb29698
+    ami: ami-c980b6af
 
 cookbooks:                                                                      
   hopsworks:                                                                     
