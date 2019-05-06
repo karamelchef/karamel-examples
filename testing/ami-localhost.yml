@@ -16,6 +16,25 @@ attrs:
  hopsworks:
    https:
      port: 443
+ cuda:
+   accept_nvidia_download_terms: true
+ hops:
+    tls:
+      enabled: true
+      certs_actor_class: "org.apache.hadoop.yarn.server.resourcemanager.security.DevHopsworksRMAppCertificateActions"
+      crl_enabled: true
+      crl_fetcher_class: "org.apache.hadoop.security.ssl.DevRemoteCRLFetcher"
+      crl_fetcher_interval: "30m"
+   cgroups: true
+   yarn:
+     memory_mbs: 28000
+     vcores: 15
+     max_vcores: 15
+     gpus: '*'
+   capacity:
+     resource_calculator_class: org.apache.hadoop.yarn.util.resource.DominantResourceCalculatorGPU
+ nvidia:
+   driver_version: "384.145"
 
 groups:
  namenodes:
