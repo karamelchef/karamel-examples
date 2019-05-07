@@ -1,71 +1,63 @@
 name: HopsworksAMI
 baremetal:
-   username: ubuntu
+  username: ubuntu
 
 cookbooks:
- hopsworks:
-   github: logicalclocks/hopsworks-chef
-   branch: master
+hopsworks:
+  github: logicalclocks/hopsworks-chef
+  branch: master
 
 attrs:
- install:
-   dir: /srv/hops
- kagent:
-   network:
-     interface: lo
- hopsworks:
-   https:
-     port: 443
- cuda:
-   accept_nvidia_download_terms: true
- hops:
-    tls:
-      enabled: true
-      certs_actor_class: "org.apache.hadoop.yarn.server.resourcemanager.security.DevHopsworksRMAppCertificateActions"
-      crl_enabled: true
-      crl_fetcher_class: "org.apache.hadoop.security.ssl.DevRemoteCRLFetcher"
-      crl_fetcher_interval: "30m"
-   cgroups: true
-   yarn:
-     memory_mbs: 28000
-     vcores: 15
-     max_vcores: 15
-     gpus: '*'
-   capacity:
-     resource_calculator_class: org.apache.hadoop.yarn.util.resource.DominantResourceCalculatorGPU
- nvidia:
-   driver_version: "384.145"
+install:
+  dir: /srv/hops
+kagent:
+  network:
+    interface: lo
+hopsworks:
+  https:
+    port: 443
+hops:
+  tls:
+    enabled: true
+  cgroups: true
+  yarn:
+    memory_mbs: 28000
+    vcores: 15
+    max_vcores: 15
+    gpus: '*'
+  capacity:
+    resource_calculator_class: org.apache.hadoop.yarn.util.resource.DominantResourceCalculatorGPU
 
 groups:
- namenodes:
-   size: 1
-   baremetal:
-     ip: 127.0.0.1
-   recipes:
-     - kagent
-     - conda
-     - ndb::mgmd
-     - ndb::ndbd
-     - ndb::mysqld
-     - hops::ndb
-     - hops::rm
-     - hops::nn
-     - hops::jhs
-     - hadoop_spark::yarn
-     - hadoop_spark::historyserver
-     - elastic
-     - livy
-     - kzookeeper
-     - kkafka
-     - epipe
-     - hopsworks
-     - hopsmonitor
-     - hopslog
-     - hopslog::_filebeat-spark
-     - hopslog::_filebeat-serving
-     - hops::dn
-     - hops::nm
-     - tensorflow
-     - hive2
-     - hops_airflow
-     - hops_airflow::sqoop
+namenodes:
+  size: 1
+  baremetal:
+    ip: 127.0.0.1
+  recipes:
+    - kagent
+    - conda
+    - ndb::mgmd
+    - ndb::ndbd
+    - ndb::mysqld
+    - hops::ndb
+    - hops::rm
+    - hops::nn
+    - hops::jhs
+    - hadoop_spark::yarn
+    - hadoop_spark::historyserver
+    - elastic
+    - livy
+    - kzookeeper
+    - kkafka
+    - epipe
+    - hopsworks
+    - hopsmonitor
+    - hopslog
+    - hopslog::_filebeat-spark
+    - hopslog::_filebeat-serving
+    - hops::dn
+    - hops::nm
+    - tensorflow
+    - hive2
+    - hops_airflow
+    - hops_airflow::sqoop
