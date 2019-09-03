@@ -1,4 +1,4 @@
-name: HopsWorksOneNodeAws
+name: HopsWorks16
 ec2:
     type: m3.2xlarge
     region: us-east-1
@@ -7,17 +7,19 @@ ec2:
 cookbooks:                                                                      
   hopsworks:                                                                     
     github: "hopshadoop/hopsworks-chef"
-    branch: "0.9"  
+    branch: "master"
 
 attrs:
   install:
-    dir: "/mnt/hops"
+    dir: "/mnt"
     user: ubuntu
+  java:
+    install_flavor: openjdk
 
 groups: 
   hopsworks:
     size: 1 
-    recipes:
+    recipes: 
       - kagent
       - conda
       - ndb::mgmd
@@ -32,21 +34,19 @@ groups:
       - flink::yarn
       - elastic
       - livy
-      - zeppelin
       - kzookeeper
       - kkafka
       - epipe
       - hopsworks
-      - hopsworks::dev
       - hopsmonitor
       - hopslog
-      - hopslog::_filebeat-spark
-      - hopslog::_filebeat-serving
       - hops::dn
       - hops::nm
       - tensorflow
       - hopsmonitor::telegraf
       - hive2
+      - hopslog::_filebeat-spark
+      - hopslog::_filebeat-serving
+      - hive2
       - hops_airflow
-
 

@@ -18,13 +18,16 @@ attrs:
   kagent:
     network:
       interface: ens4
+  hopsworks:
+    https:
+      port: 443
   hops:
+    tls:
+      enabled: true
+      crl_enabled: true
+      crl_fetcher_class: "org.apache.hadoop.security.ssl.DevRemoteCRLFetcher"
     rmappsecurity:
       actor_class: "org.apache.hadoop.yarn.server.resourcemanager.security.DevHopsworksRMAppSecurityActions"
-  hopsworks:
-    kagent_liveness:
-      enabled: true
-      threshold: "40s"
   ndb:
     nvme:
       format: true
